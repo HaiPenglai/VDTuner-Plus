@@ -1,7 +1,7 @@
 import sys
 # print('\n'.join(sys.path))
 # exit()
-sys.path.append('/home/ytn/.local/lib/python3.11/site-packages')
+# sys.path.append('/home/ytn/.local/lib/python3.11/site-packages')
 
 import fnmatch
 import traceback

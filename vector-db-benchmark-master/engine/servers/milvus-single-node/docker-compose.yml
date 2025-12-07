@@ -3,7 +3,8 @@ version: '3.5'
 services:
   etcd:
     container_name: milvus-etcd
-    image: quay.io/coreos/etcd:v3.5.5
+    # 直接替换域名 quay.io -> quay.1ms.run
+    image: quay.1ms.run/coreos/etcd:v3.5.5
     environment:
       - ETCD_AUTO_COMPACTION_MODE=revision
       - ETCD_AUTO_COMPACTION_RETENTION=1000
@@ -20,7 +21,8 @@ services:
 
   minio:
     container_name: milvus-minio
-    image: minio/minio:RELEASE.2023-03-20T20-16-18Z
+    # docker.1ms.run
+    image: docker.1ms.run/minio/minio:RELEASE.2023-03-20T20-16-18Z
     environment:
       MINIO_ACCESS_KEY: minioadmin
       MINIO_SECRET_KEY: minioadmin
@@ -38,13 +40,15 @@ services:
 
   standalone:
     container_name: milvus-standalone
-    image: milvusdb/milvus:v2.3.1
+    # docker.1ms.run
+    image: docker.1ms.run/milvusdb/milvus:v2.3.1
     command: ["milvus", "run", "standalone"]
     environment:
       ETCD_ENDPOINTS: etcd:2379
       MINIO_ADDRESS: minio:9000
     volumes:
-      - /home/ytn/milvusTuning/vector-db-benchmark-master/engine/servers/milvus-single-node/milvus.yaml:/milvus/configs/milvus.yaml
+      # 【切记】路径必须是你自己的绝对路径！
+      - /home/dyx/VDTuner/vector-db-benchmark-master/engine/servers/milvus-single-node/milvus.yaml:/milvus/configs/milvus.yaml
       - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/milvus:/var/lib/milvus
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]

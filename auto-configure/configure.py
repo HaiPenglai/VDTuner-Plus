@@ -1,12 +1,12 @@
 import json
 import yaml
 
-with open('/home/ytn/milvusTuning/auto-configure/index_param.json', 'r') as f:
+with open('/home/dyx/VDTuner/auto-configure/index_param.json', 'r') as f:
     INDEX_PARAM_DICT = json.load(f)
 
-CONF_PATH = r'/home/ytn/milvusTuning/vector-db-benchmark-master/experiments/configurations/milvus-single-node.json'
-ORIGIN_PATH = r'/home/ytn/milvusTuning/vector-db-benchmark-master/engine/servers/milvus-single-node/milvus.yaml.backup'
-ADJUST_PATH = r'/home/ytn/milvusTuning/vector-db-benchmark-master/engine/servers/milvus-single-node/milvus.yaml'
+CONF_PATH = r'/home/dyx/VDTuner/vector-db-benchmark-master/experiments/configurations/milvus-single-node.json'
+ORIGIN_PATH = r'/home/dyx/VDTuner/vector-db-benchmark-master/engine/servers/milvus-single-node/milvus.yaml.backup'
+ADJUST_PATH = r'/home/dyx/VDTuner/vector-db-benchmark-master/engine/servers/milvus-single-node/milvus.yaml'
 
 def filter_index_rule(conf):
     for item in INDEX_PARAM_DICT.keys():

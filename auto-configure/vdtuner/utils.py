@@ -10,8 +10,8 @@ import subprocess as sp
 import random
 from configure import *
 
-KNOB_PATH = r'/home/ytn/milvusTuning/auto-configure/whole_param.json'
-RUN_ENGINE_PATH = r'/home/ytn/milvusTuning/vector-db-benchmark-master/run_engine.sh'
+KNOB_PATH = r'/home/dyx/VDTuner/auto-configure/whole_param.json'
+RUN_ENGINE_PATH = r'/home/dyx/VDTuner/vector-db-benchmark-master/run_engine_test.sh'
 
 def LHS_sample(dimension, num_points, seed):
     sampler = qmc.LatinHypercube(d=dimension, seed=seed)
@@ -114,7 +114,7 @@ class RealEnv:
             # print(f"Parameters changed to: {index_conf} {system_conf}")
 
             try:
-                result = sp.run(f'sudo timeout 900 {RUN_ENGINE_PATH} "" "" glove-100-angular', shell=True, stdout=sp.PIPE)
+                result = sp.run(f'timeout 900 {RUN_ENGINE_PATH} "" "" glove-100-angular', shell=True, stdout=sp.PIPE)
                 result = result.stdout.decode().split()
                 y1, y2 = float(result[-2]), float(result[-3]) 
                 # y1, y2 = 1698.4412378836437*(random.random()+0.5), 0.822103*(random.random()+0.5)

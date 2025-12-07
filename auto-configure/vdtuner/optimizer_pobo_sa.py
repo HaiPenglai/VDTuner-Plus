@@ -3,7 +3,7 @@ from botorch.models import SingleTaskGP
 from botorch.models.model_list_gp_regression import ModelListGP
 from botorch.acquisition import ExpectedImprovement, LogExpectedImprovement, ConstrainedExpectedImprovement
 from botorch.optim import optimize_acqf
-from botorch.fit import fit_gpytorch_model
+from botorch.fit import fit_gpytorch_mll
 from gpytorch.mlls.sum_marginal_log_likelihood import SumMarginalLogLikelihood
 from gpytorch.mlls import ExactMarginalLogLikelihood
 from utils import *
@@ -181,7 +181,7 @@ class EHVIBO:
             
         self.model = ModelListGP(*models)
         self.mll = SumMarginalLogLikelihood(self.model.likelihood, self.model)
-        fit_gpytorch_model(self.mll)
+        fit_gpytorch_mll(self.mll)
 
 
 class PollingBayesianOptimization:
