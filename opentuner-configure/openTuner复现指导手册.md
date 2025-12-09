@@ -6,7 +6,7 @@
 
 **假设**：已经跑通了VDTuner，已经学会了OpenTuner的配置方法。
 
-**注意**：VDTuner运行的时候不可以运行opentuner，这是因为VDTuner/OpenTuner 都会修改 milvus.yaml 并重启 Docker。如果 VDTuner 刚设置好配置 A 准备跑测试，OpenTuner 突然把配置改成 B 并重启了服务，VDTuner 的测试结果就会完全错误（或者直接报错）
+**注意**：VDTuner运行的时候不可以运行opentuner，这是因为VDTuner/OpenTuner 都会修改 milvus.yaml 并重启 milvus。如果 VDTuner 刚设置好配置 A 准备跑测试，OpenTuner 突然把配置改成 B 并重启了服务，VDTuner 的测试结果就会完全错误（或者直接报错）
 
 ### pip安装opentuner
 
