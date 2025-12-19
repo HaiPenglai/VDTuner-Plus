@@ -636,6 +636,18 @@ vectors.npy
 
 ![image-20251205183359091](./assets/image-20251205183359091.png)
 
+### 5个数据集下载链接整理
+
+```shell
+glove/geo_radius/keyword_match/arxiv_titles/deep_image的下载链接依次是：（顺序一致）
+
+http://ann-benchmarks.com/glove-100-angular.hdf5
+https://storage.googleapis.com/ann-filtered-benchmark/datasets/random_geo_100k_no_filters.tgz
+https://storage.googleapis.com/ann-filtered-benchmark/datasets/random_keywords_1m_no_filters.tgz
+https://storage.googleapis.com/ann-filtered-benchmark/datasets/arxiv_no_filters.tar.gz
+http://ann-benchmarks.com/deep-image-96-angular.hdf5
+```
+
 ### 修改VDTuner的配置
 
 下面，为了运行VDTuner，也就是auto-configure文件夹，首先需要修改文件路径
