@@ -48,7 +48,7 @@ services:
       MINIO_ADDRESS: minio:9000
     volumes:
       # 【切记】路径必须是你自己的绝对路径！
-      - /home/dyx/VDTuner/vector-db-benchmark-master/engine/servers/milvus-single-node/milvus.yaml:/milvus/configs/milvus.yaml
+      - ./milvus.yaml:/milvus/configs/milvus.yaml
       - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/milvus:/var/lib/milvus
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
@@ -62,7 +62,3 @@ services:
     depends_on:
       - "etcd"
       - "minio"
-
-networks:
-  default:
-    name: milvus
