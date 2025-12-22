@@ -58,7 +58,7 @@ def main():
 
     recommended_configs = results.minl_conf
     
-    print("\n推荐的新配置 (已还原):")
+    print("\n推荐的新配置 (注意：需要将缩放后的配置映射回原始空间):")
     for i, conf in enumerate(recommended_configs):
         val_scaled = conf[0]
         val = val_scaled * (X_max_raw - X_min_raw) + X_min_raw
