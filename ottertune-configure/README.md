@@ -135,5 +135,68 @@ Results saved to:  /home/dyx/VDTuner/vector-db-benchmark-master/results
 ```
 注：上述的环境是ottertune，这表明，我们在一个兼容ottertune的环境中，跑通了benchmark。
 
+## 解决QMC兼容性问题
+
+### 问题背景
+OtterTune使用的是Python 3.6和Scipy 1.0.0，而VDTuner的原始代码依赖于Scipy 1.7.0+版本中的`qmc`模块。由于Python版本差异，直接运行会出现`ImportError: cannot import name 'qmc' from 'scipy.stats'`错误。
+
+### 解决方案
+我们采用了折中方案，将VDTuner的核心接口拷贝到独立目录中进行修改：
+1. 将`auto-config`中的`vdtuner`文件夹拷贝到`/home/dyx/VDTuner/ottertune-configure/vdtuner_interface`
+2. 修改`vdtuner_interface/utils.py`，将`qmc`依赖替换为手动实现的拉丁超立方采样（LHS）算法
+
+### 关键库的作用
+在`main_ottertune.py`中，我们引入了三个核心库：
+
+```python
+from analysis.gp_tf import GPRGD
+from vdtuner_interface.utils import LHS_sample, KnobStand, RealEnv
+from configure import configure_index, filter_index_rule, configure_system, filter_system_rule
+```
+
+#### 1. `analysis.gp_tf.GPRGD`
+OtterTune的核心优化算法，基于高斯过程回归（Gaussian Process Regression）和梯度下降（Gradient Descent）的组合。它负责：
+- 建立性能模型
+- 预测不同配置下的性能表现
+- 生成新的候选配置
+
+#### 2. `vdtuner_interface.utils`
+我们自定义的VDTuner接口，包含：
+- `LHS_sample`: 手动实现的拉丁超立方采样算法，用于生成初始配置样本
+- `KnobStand`: 管理数据库的可调参数（旋钮）
+- `RealEnv`: 真实环境交互接口，用于执行配置和收集性能数据
+
+#### 3. `configure`
+VDTuner的配置管理模块，负责：
+- `configure_index`: 配置数据库索引参数
+- `filter_index_rule`: 过滤无效的索引配置
+- `configure_system`: 配置系统级参数
+- `filter_system_rule`: 过滤无效的系统配置
+
+### OtterTune调优VDTuner的基本思路
+1. **初始化**：使用LHS采样生成一组初始配置
+2. **评估**：在真实环境中运行这些配置，收集性能数据
+3. **建模**：使用GPRGD算法建立性能预测模型
+4. **优化**：基于模型预测生成新的候选配置
+5. **迭代**：重复评估-建模-优化过程，直到达到停止条件
+6. **输出**：记录所有配置和性能数据到日志文件
+
+
+### 验证用OtterTune调优VDTuner中的数据集
+
+只需要在`ottertune-configure`执行`python ./main_ottertune.py`。如果看到下面的RPS = 1231.6368, Precision = 0.7671这样的字样，就说明调优成功了。
+```shell
+(ottertune) dyx@server9050:~/VDTuner/ottertune-configure$ python ./main_ottertune.py
+[2025-12-22 11:11:16] --- OtterTune VDTuner Integration ---
+
+[2025-12-22 11:11:16] Initializing environment...
+[2025-12-22 11:11:16] Number of knobs: 16
+...//这里省去很多日志
+1183514it [01:56, 10143.45it/s]
+10000it [00:08, 1247.92it/s]
+/home/dyx/VDTuner/vector-db-benchmark-master/run_engine_test.sh: line 63: kill: (2875367) - No such process
+[2025-12-22 11:16:21] Performance: RPS = 1231.6368, Precision = 0.7671, Objective = 1000000.0000
+[2025-12-22 11:16:21] 
+```
 
 
