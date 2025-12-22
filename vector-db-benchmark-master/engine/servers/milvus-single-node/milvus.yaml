@@ -27,7 +27,7 @@ common:
   defaultPartitionName: _default
   entityExpiration: -1
   gracefulStopTimeout: 1800
-  gracefulTime: 49203
+  gracefulTime: 86364
   indexSliceSize: 16
   locks:
     metrics:
@@ -90,9 +90,9 @@ dataCoord:
     maxBinlogFileNumber: 32
     maxIdleTime: 600
     maxLife: 86400
-    maxSize: 5537
+    maxSize: 5595
     minSizeFromIdleToSealed: 16
-    sealProportion: 0.46
+    sealProportion: 0.38
     smallProportion: 0.5
 dataNode:
   dataSync:
@@ -113,7 +113,7 @@ dataNode:
   port: 21124
   segment:
     deleteBufBytes: 67108864
-    insertBufSize: 7042601244
+    insertBufSize: 7503322741
     syncPeriod: 600
   timetick:
     byRPC: true
@@ -252,7 +252,7 @@ pulsar:
   webport: 80
 queryCoord:
   autoBalance: true
-  autoHandoff: false
+  autoHandoff: true
   balanceIntervalSeconds: 60
   balancer: ScoreBasedBalancer
   brokerTimeout: 5000
@@ -422,7 +422,7 @@ rootCoord:
   importTaskRetention: 86400
   maxDatabaseNum: 64
   maxPartitionNum: 4096
-  minSegmentSizeToEnableIndex: 1094
+  minSegmentSizeToEnableIndex: 8807
   port: 53100
 tls:
   caPemPath: configs/cert/ca.pem

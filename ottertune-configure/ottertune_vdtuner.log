@@ -1,0 +1,18 @@
+[2025-12-22 09:55:22] --- OtterTune VDTuner Integration ---
+
+[2025-12-22 09:55:22] Initializing environment...
+[2025-12-22 09:55:22] Number of knobs: 16
+[2025-12-22 09:55:22] 
+--- Initial Sampling ---
+
+[2025-12-22 09:55:22] Generating 7 initial samples using Latin Hypercube Sampling...
+[2025-12-22 09:55:22] Initial samples shape: (7, 16)
+[2025-12-22 09:55:22] 
+Running initial sample 1/7...
+[2025-12-22 09:55:22] Index configuration: {'index_type': 'AUTOINDEX', 'nlist': 1757, 'nprobe': 55, 'm': 4, 'nbits': 4, 'M': 52, 'efConstruction': 289, 'ef': 856, 'reorder_k': 629}
+[2025-12-22 09:55:22] System configuration: {'dataCoord*segment*maxSize': 6502, 'dataCoord*segment*sealProportion': 70, 'queryCoord*autoHandoff': True, 'queryCoord*autoBalance': True, 'common*gracefulTime': 16103, 'dataNode*segment*insertBufSize': 6004705020, 'rootCoord*minSegmentSizeToEnableIndex': 2686}
+[2025-12-22 09:56:58] Engine test failed, skipping this sample
+[2025-12-22 09:56:58] 
+Running initial sample 2/7...
+[2025-12-22 09:56:58] Index configuration: {'index_type': 'IVF_SQ8', 'nlist': 9334, 'nprobe': 41, 'm': 50, 'nbits': 7, 'M': 39, 'efConstruction': 449, 'ef': 565, 'reorder_k': 864}
+[2025-12-22 09:56:58] System configuration: {'dataCoord*segment*maxSize': 5595, 'dataCoord*segment*sealProportion': 38, 'queryCoord*autoHandoff': True, 'queryCoord*autoBalance': True, 'common*gracefulTime': 86364, 'dataNode*segment*insertBufSize': 7503322741, 'rootCoord*minSegmentSizeToEnableIndex': 8807}
